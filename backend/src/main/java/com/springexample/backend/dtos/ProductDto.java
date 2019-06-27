@@ -7,6 +7,9 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.springexample.backend.customannotations.PesoLiquidoLessThanPesoBruto;
+
+@PesoLiquidoLessThanPesoBruto(message = "Peso líquido não pode ser maior que Peso bruto")
 public class ProductDto {
 	
 	private Long 			id;

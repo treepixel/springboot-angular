@@ -3,6 +3,7 @@ package com.springexample.backend.dtos;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -41,8 +42,8 @@ public class ProductDto {
 	public void setVeiculoAplicacao(String veiculoAplicacao) {
 		this.veiculoAplicacao = veiculoAplicacao;
 	}
-
-	@NotEmpty(message = "Peso líquido não pode ser vazio")
+	
+	@NotNull(message = "Peso líquido não pode ser vazio")
 	public Double getPesoLiquido() {
 		return pesoLiquido;
 	}
@@ -50,7 +51,7 @@ public class ProductDto {
 		this.pesoLiquido = pesoLiquido;
 	}
 	
-	@NotEmpty(message = "Peso bruto não pode ser vazio")
+	@NotNull(message = "Peso bruto não pode ser vazio")
 	public Double getPesoBruto() {
 		return pesoBruto;
 	}

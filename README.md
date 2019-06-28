@@ -19,87 +19,79 @@ git clone https://github.com/treepixel/springboot-angular.git
 2. Edite as configurações do banco de dados em:
 
 ```
-SisACTE/src/main/resources/applications.properties
+## Modo de Produção ##
+backend/src/main/resources/applications.properties
+
+## Modo de Desenvolvimento ##
+backend/src/main/resources/applications-dev.properties
 ```
-
-Para que o PostgreSQL possa realizar as operações de georeferenciamento baixe e instale o postgis:
-
-https://postgis.net/install/
-
-Em seguida instale as extensões postgis, postgis_topology e unnacent no PostgreSQL.
-
-3. Dentro do diretório Backend-SpringBoot é só digitar os comandos abaixo para rodar a aplicação:
+Exemplo:
 
 ```
-mvn spring-boot:run
+spring.datasource.url={url do banco Postgres}
+spring.datasource.username={ usuário }
+spring.datasource.password={ senha }
+spring.datasource.driverClassName=org.postgresql.Driver
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=false
+spring.datasource.sqlScriptEncoding=UTF-8
+#spring.profiles.active=dev (Caso queira executar no modo dev apague #)
 ```
 
-Ou você pode criar um executável Jar digitando
+3. Dentro do diretório backend é só digitar os comandos abaixo para rodar a aplicação:
 
 ```
-mvn package
+mvn spring-boot:run ==> A aplicação irá estar disponível em http://localhost:8080
 ```
 
-O arquivo Jar será salvo dentro da pasta target, você pode executá-lo digitando:
 
-```
-java -jar target/sistema-denuncias-trabalho-escravo-0.0.1-SNAPSHOT.jar
-```
 
-### Requisitos para instalação do Frontend-AngularJs
+### Requisitos para instalação do Frontend
 
-A aplicação cliente requer o Node.Js na versão 8.12.0 ou mais recente. Se você ainda não tem instalado, você pode seguir as instruções em [nodejs.org](https://nodejs.org/en/)
+A aplicação cliente requer o Node.Js na versão 10.0 ou mais recente. Se você ainda não tem instalado, você pode seguir as instruções em [nodejs.org](https://nodejs.org/en/). Além disso, verifique a versão do npm se é igual ou mais recente que 6.0. 
 
-### Instalação do Frontend-AngularJs
+### Instalação do Frontend
 
 1. Caso não tenha clonado ainda o projeto, clone digitando:
 
 ```
-git clone git@gitlab.sit.trabalho.gov.br:sit/SisACTE.git
+git clone https://github.com/treepixel/springboot-angular.git
 ```
 
-2)Abra o arquivo _Frontend-AngularJs/app/config/consts.js_ e altere a propriedade "site" para o endereço url da aplicação servidor (Backend-SpringBoot)
+2. Caso esteja rodando a aplicação em uma porta diferente, abra o arquivo frontend/src/app/services/api.service.ts  e altere o valor de "API_URL" para o endereço url da aplicação servidor (Backend-SpringBoot)
 
 ```javascript
-angular
-  .module("myApp")
-  .constant("consts", {
-    appName: "Detrae/Sit",
-    version: "1.0",
-    owner: "Detrae/Sit",
-    year: "2018",
-    site: "http://localhost:8080", //Mude aqui para a url do servidor rest
-    userKey: "_detrae_sit"
-  })
-  .run([
-    "$rootScope",
-    "consts",
-    function($rootScope, consts) {
-      $rootScope.consts = consts;
-    }
-  ]);
+...
+
+export class ApiService {
+
+  constructor(private http: HttpClient) { }
+
+  readonly API_URL = 'http://localhost:8080/api';
+
+  addProduct (product: Product): Observable<Product> {
+    return this.http.post<Product>(`${this.API_URL}/products`, product, httpOptions)
+  }
+
+...
 ```
 
-3. Digite o comando dentro do diretório Frontend-AngularJs
+3. Dentro da pasta frontend digite o comando abaixo para instalar as dependências:
 
 ```
 npm install
 ```
 
-4. Digite o comando
+4. Depois de instaladas as dependências inicie a aplicação
 
 ```
-npm install -g gulp
+npm start ou ng serve
 ```
 
-5. Por fim execute a aplicação digitando
+5. Após a inicialização abra o seu navegador na url abaixo para visualizar a aplicação:
 
 ```
-npm run dev
+http://localhost:4200
 ```
 
-ou
 
-```
-npm run production
-```

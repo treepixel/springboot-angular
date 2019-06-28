@@ -39,6 +39,7 @@
 # dependencies
 /frontend/node_modules
 /frontend/package-lock.json
+/frontend/yarn.lock
 
 # profiling files
 /frontend/chrome-profiler-events.json

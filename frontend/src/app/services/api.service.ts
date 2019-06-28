@@ -25,7 +25,7 @@ export class ApiService {
   }
 
   getProducts (): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.API_URL}/products`)
+    return this.http.get<Product[]>(`${this.API_URL}/products?sort=nome,asc`)
       .pipe(
         map((value: any) => value.content)
       )

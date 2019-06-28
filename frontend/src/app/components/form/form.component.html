@@ -8,20 +8,85 @@
         <div class="group">
           <label>Nome do Produto:</label>
           <input type="text" formControlName="nome" />
+          <label
+            class="error"
+            *ngIf="
+              form.get('nome').status == 'INVALID' &&
+              (form.get('nome').touched || form.get('nome').dirty)
+            "
+          >
+            Deve conter entre 5 e 200 caracteres
+          </label>
         </div>
       </div>
       <div class="row">
         <div class="group">
           <label>Veículo de aplicação:</label>
           <input type="text" formControlName="veiculoAplicacao" />
+          <label
+            class="error"
+            *ngIf="
+              form.get('veiculoAplicacao').status == 'INVALID' &&
+              (form.get('veiculoAplicacao').touched ||
+                form.get('veiculoAplicacao').dirty)
+            "
+          >
+            Deve conter entre 5 e 200 caracteres
+          </label>
         </div>
         <div class="group">
           <label>Peso Bruto:</label>
-          <input type="number" formControlName="pesoBruto" step="0.01" />
+          <input
+            type="text"
+            formControlName="pesoBruto"
+            currencyMask
+            [options]="{
+              prefix: '',
+              thousands: ',',
+              decimal: '.',
+              align: 'left'
+            }"
+          />
+          <label
+            class="error"
+            *ngIf="
+              form.get('pesoBruto').status == 'INVALID' &&
+              (form.get('pesoBruto').touched || form.get('pesoBruto').dirty)
+            "
+          >
+            preencha o valor
+          </label>
         </div>
         <div class="group">
           <label>Peso Líquido:</label>
-          <input type="number" formControlName="pesoLiquido" step="0.01" />
+          <input
+            type="text"
+            formControlName="pesoLiquido"
+            currencyMask
+            [options]="{
+              prefix: '',
+              thousands: ',',
+              decimal: '.',
+              align: 'left'
+            }"
+          />
+          <label
+            class="error"
+            *ngIf="
+              form.get('pesoLiquido').status == 'INVALID' &&
+              (form.get('pesoLiquido').touched || form.get('pesoLiquido').dirty)
+            "
+          >
+            preencha o valor
+          </label>
+          <label
+            class="error"
+            *ngIf="
+              form.errors?.invalidPesoLiquido && (form.touched || form.dirty)
+            "
+          >
+            Deve ser inferior ao Peso Bruto
+          </label>
         </div>
       </div>
       <div class="row pull-right">
@@ -29,6 +94,9 @@
           {{ modeEdition == "edit" ? "Editar" : "Adicionar" }}
         </button>
       </div>
+      <input type="hidden" formControlName="id" />
+      <input type="hidden" formControlName="createdAt" />
+      <input type="hidden" formControlName="updatedAt" />
     </form>
   </div>
 </div>

@@ -2,13 +2,20 @@
   <div class="container">
     <div *ngIf="products.length > 0">
       <h1>Lista</h1>
-      <ul class="list">
-        <li *ngFor="let product of products">
-          <div class="info">
-            <h3>{{ product.nome }}</h3>
-            <span>Veículo de aplicação: {{ product.veiculoAplicacao }}</span>
-          </div>
-          <div class="control">
+      <table>
+        <tr class="thead">
+          <th style="width: 35%">Produto</th>
+          <th style="width: 35%">Veículo de Aplicação</th>
+          <th style="width: 120px">Peso Bruto</th>
+          <th style="width: 120px">Peso Líquido</th>
+          <th class="control" style="width: 100px">Ação</th>
+        </tr>
+        <tr *ngFor="let product of products">
+          <td>{{ product.nome }}</td>
+          <td>{{ product.veiculoAplicacao }}</td>
+          <td>{{ product.pesoBruto | number: "1.2-2" }}</td>
+          <td>{{ product.pesoLiquido | number: "1.2-2" }}</td>
+          <td class="control">
             <a
               class="primary"
               [routerLink]="['/editar-produto', product.id]"
@@ -23,9 +30,9 @@
             >
               <fa-icon [icon]="faTimes"></fa-icon>
             </a>
-          </div>
-        </li>
-      </ul>
+          </td>
+        </tr>
+      </table>
     </div>
     <div class="message" *ngIf="products.length == 0">
       <h1>Nenhum produto cadastrado</h1>

@@ -22,16 +22,19 @@ export class ListComponent implements OnInit {
   deleteProduct(id: number, $event): void {
     $event.preventDefault()
     this.apiService.deleteProduct(id)
-    .subscribe(product => {
-      this.products = this.products.filter(product => product.id !== id);
-    });
+    .subscribe(
+      () => this.products = this.products.filter(product => product.id !== id),
+      errors => console.log(errors.error.message) 
+    );
   }
 
   ngOnInit() {
-    
+  
     //Assing this.products with products from api
     this.apiService.getProducts()
-    .subscribe(data => this.products = data)
+    .subscribe(
+      data => this.products = data,
+      errors => console.log(errors)
+    )
   }
-
 }

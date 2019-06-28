@@ -3,6 +3,7 @@ form {
   .row {
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
     justify-content: space-between;
     margin: 1.5rem 0;
 
@@ -37,6 +38,13 @@ form {
         }
       }
 
+      label {
+        &.error {
+          margin: 0.5rem 0;
+          color: #dd2727;
+        }
+      }
+
       &:first-child {
         margin-left: 0;
       }
@@ -47,6 +55,17 @@ form {
 
       &:last-child {
         margin-right: 0;
+      }
+
+      &.ng-invalid {
+        input {
+          border: 1px solid #dd2727;
+        }
+      }
+      &.ng-untouched {
+        input {
+          border: 1px solid #ababab;
+        }
       }
     }
 

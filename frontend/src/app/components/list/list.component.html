@@ -1,1 +1,38 @@
-<p>list works!</p>
+<div class="content" *ngIf="products">
+  <div class="container">
+    <div *ngIf="products.length > 0">
+      <h1>Lista</h1>
+      <ul class="list">
+        <li *ngFor="let product of products">
+          <div class="info">
+            <h3>{{ product.nome }}</h3>
+            <span>Veículo de aplicação: {{ product.veiculoAplicacao }}</span>
+          </div>
+          <div class="control">
+            <a
+              class="primary"
+              [routerLink]="['/editar-produto', product.id]"
+              style="font-size: 0.8rem;"
+            >
+              <fa-icon [icon]="faPen"></fa-icon>
+            </a>
+            <a
+              href="#"
+              class="danger"
+              (click)="deleteProduct(product.id, $event)"
+            >
+              <fa-icon [icon]="faTimes"></fa-icon>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="message" *ngIf="products.length == 0">
+      <h1>Nenhum produto cadastrado</h1>
+      <p>
+        Por favor clique no botão adicionar acima <Br />para cadastrar o
+        primeiro produto
+      </p>
+    </div>
+  </div>
+</div>

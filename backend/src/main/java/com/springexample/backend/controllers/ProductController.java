@@ -49,6 +49,19 @@ public class ProductController {
 		return new ResponseEntity<>(convertToDto(productCreated), HttpStatus.OK );
 	}
 	
+	@ResponseBody
+	@RequestMapping(value ="/products", method = RequestMethod.PUT)
+	public ResponseEntity<?> editProduct(@Valid @RequestBody ProductDto productDto, 
+			BindingResult result) throws ParseException {
+		
+		if(result.hasErrors()) {
+			return ResponseEntity.badRequest().body(this.getErrors(result));
+		}
+		
+		Product product = convertToEntity(productDto);
+		Product productCreated = productService.save(product);
+		return new ResponseEntity<>(convertToDto(productCreated), HttpStatus.OK );
+	}	
 	
 	@RequestMapping(value ="/products", method = RequestMethod.GET)
 	public ResponseEntity<?> getProducts(Pageable pageable) {

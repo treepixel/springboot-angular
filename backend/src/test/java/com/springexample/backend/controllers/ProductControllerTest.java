@@ -1,4 +1,4 @@
-package com.springexamble.backend.controllers;
+package com.springexample.backend.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
